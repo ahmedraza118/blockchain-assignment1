@@ -1,0 +1,342 @@
+{
+  "buildInfo": {
+    "rustc": {
+      "version": "1.82.0",
+      "commitHash": "f6e511eec7342f59a25f7c0534f1dbea00d01b14",
+      "commitDate": "2024-10-15",
+      "channel": "Stable",
+      "short": "rustc 1.82.0 (f6e511eec 2024-10-15)"
+    },
+    "contractCrate": {
+      "name": "tema-1",
+      "version": "0.0.0"
+    },
+    "framework": {
+      "name": "multiversx-sc",
+      "version": "0.53.2"
+    }
+  },
+  "name": "Tema1",
+  "constructor": {
+    "inputs": [],
+    "outputs": []
+  },
+  "upgradeConstructor": {
+    "inputs": [],
+    "outputs": []
+  },
+  "endpoints": [
+    {
+      "name": "issueNft",
+      "onlyOwner": true,
+      "mutability": "mutable",
+      "payableInTokens": ["EGLD"],
+      "inputs": [
+        {
+          "name": "token_display_name",
+          "type": "bytes"
+        },
+        {
+          "name": "token_ticker",
+          "type": "bytes"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "name": "createNftWithAttributes",
+      "onlyOwner": true,
+      "mutability": "mutable",
+      "inputs": [
+        {
+          "name": "name",
+          "type": "bytes"
+        },
+        {
+          "name": "class",
+          "type": "u8"
+        },
+        {
+          "name": "rarity",
+          "type": "u8"
+        },
+        {
+          "name": "power",
+          "type": "u8"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "name": "getYourNftCardProperties",
+      "mutability": "mutable",
+      "inputs": [],
+      "outputs": [
+        {
+          "type": "CardProperties"
+        }
+      ]
+    },
+    {
+      "name": "exchangeNft",
+      "mutability": "mutable",
+      "payableInTokens": ["*"],
+      "inputs": [
+        {
+          "name": "nonce",
+          "type": "u64"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "name": "getTokenId",
+      "mutability": "readonly",
+      "inputs": [],
+      "outputs": [
+        {
+          "type": "TokenIdentifier"
+        }
+      ]
+    },
+    {
+      "name": "getTokenData",
+      "mutability": "readonly",
+      "inputs": [
+        {
+          "name": "token_nonce",
+          "type": "u64"
+        }
+      ],
+      "outputs": [
+        {
+          "type": "EsdtTokenData"
+        }
+      ]
+    },
+    {
+      "name": "tokenId",
+      "mutability": "readonly",
+      "inputs": [],
+      "outputs": [
+        {
+          "type": "TokenIdentifier"
+        }
+      ]
+    },
+    {
+      "name": "nftSupply",
+      "mutability": "readonly",
+      "inputs": [],
+      "outputs": [
+        {
+          "type": "variadic<EsdtTokenData>",
+          "multi_result": true
+        }
+      ]
+    },
+    {
+      "name": "cardsProperties",
+      "mutability": "readonly",
+      "inputs": [],
+      "outputs": [
+        {
+          "type": "variadic<CardProperties>",
+          "multi_result": true
+        }
+      ]
+    },
+    {
+      "name": "studentsCards",
+      "mutability": "readonly",
+      "inputs": [
+        {
+          "name": "student_address",
+          "type": "Address"
+        }
+      ],
+      "outputs": [
+        {
+          "type": "CardProperties"
+        }
+      ]
+    },
+    {
+      "name": "studentsAddresses",
+      "mutability": "readonly",
+      "inputs": [],
+      "outputs": [
+        {
+          "type": "variadic<Address>",
+          "multi_result": true
+        }
+      ]
+    }
+  ],
+  "esdtAttributes": [],
+  "hasCallback": true,
+  "types": {
+    "CardProperties": {
+      "type": "struct",
+      "fields": [
+        {
+          "name": "class",
+          "type": "Class"
+        },
+        {
+          "name": "rarity",
+          "type": "Rarity"
+        },
+        {
+          "name": "power",
+          "type": "Power"
+        }
+      ]
+    },
+    "Class": {
+      "type": "enum",
+      "variants": [
+        {
+          "name": "Warrior",
+          "discriminant": 0
+        },
+        {
+          "name": "Mage",
+          "discriminant": 1
+        },
+        {
+          "name": "Rogue",
+          "discriminant": 2
+        },
+        {
+          "name": "Priest",
+          "discriminant": 3
+        },
+        {
+          "name": "Hunter",
+          "discriminant": 4
+        },
+        {
+          "name": "Warlock",
+          "discriminant": 5
+        },
+        {
+          "name": "Shaman",
+          "discriminant": 6
+        },
+        {
+          "name": "Druid",
+          "discriminant": 7
+        },
+        {
+          "name": "Paladin",
+          "discriminant": 8
+        }
+      ]
+    },
+    "EsdtTokenData": {
+      "type": "struct",
+      "fields": [
+        {
+          "name": "token_type",
+          "type": "EsdtTokenType"
+        },
+        {
+          "name": "amount",
+          "type": "BigUint"
+        },
+        {
+          "name": "frozen",
+          "type": "bool"
+        },
+        {
+          "name": "hash",
+          "type": "bytes"
+        },
+        {
+          "name": "name",
+          "type": "bytes"
+        },
+        {
+          "name": "attributes",
+          "type": "bytes"
+        },
+        {
+          "name": "creator",
+          "type": "Address"
+        },
+        {
+          "name": "royalties",
+          "type": "BigUint"
+        },
+        {
+          "name": "uris",
+          "type": "List<bytes>"
+        }
+      ]
+    },
+    "EsdtTokenType": {
+      "type": "enum",
+      "variants": [
+        {
+          "name": "Fungible",
+          "discriminant": 0
+        },
+        {
+          "name": "NonFungible",
+          "discriminant": 1
+        },
+        {
+          "name": "SemiFungible",
+          "discriminant": 2
+        },
+        {
+          "name": "Meta",
+          "discriminant": 3
+        },
+        {
+          "name": "Invalid",
+          "discriminant": 4
+        }
+      ]
+    },
+    "Power": {
+      "type": "enum",
+      "variants": [
+        {
+          "name": "Low",
+          "discriminant": 0
+        },
+        {
+          "name": "Medium",
+          "discriminant": 1
+        },
+        {
+          "name": "High",
+          "discriminant": 2
+        }
+      ]
+    },
+    "Rarity": {
+      "type": "enum",
+      "variants": [
+        {
+          "name": "Common",
+          "discriminant": 0
+        },
+        {
+          "name": "Rare",
+          "discriminant": 1
+        },
+        {
+          "name": "Epic",
+          "discriminant": 2
+        },
+        {
+          "name": "Legendary",
+          "discriminant": 3
+        }
+      ]
+    }
+  }
+}
